@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "ZZZ",
+    "author": "David Esparza",
+    "url": "abc",
+    "likes": 10
+}
+
