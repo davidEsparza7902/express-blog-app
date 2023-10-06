@@ -1,10 +1,10 @@
-const info = (str) => {
+const info = (...str) => {
     if (process.env.NODE_ENV !== 'test')
-        console.log(str)
+        console.log(...str)
 }
-const error = (str) => {
+const error = (...str) => {
     if (process.env.NODE_ENV !== 'test')
-        console.log(str)
+        console.log(...str)
 }
 
 module.exports = { 

@@ -31,11 +31,27 @@ describe ('blogApi', () =>{
         const response = await api.post('/api/blogs').send(helper.blogDummy)
         const savedBlog = response.body
         blogs = await helper.getBlogs()
-        // verify that the total number of blogs in the system is increased by one.
+
         expect(blogs.length).toBe(beforeLength+1)
-        // verify that the content of the blog post is saved correctly to the database.
         expect(blogs[blogs.length-1]).toEqual(savedBlog)
     })
+
+    test('when we make an HTTP POST request, if the likes is missing in the body, then set the value to 0', async () => {
+        const response = await api.post('/api/blogs').send(helper.blogWithoutLikes)
+        const savedBlog = response.body
+        expect(savedBlog['likes']).toBeDefined()
+        expect(savedBlog['likes']).toBe(0)
+    })
+
+    test('when we make an HTTP POST request, if the title is missing in the body, then return 400', async () => {
+        const response = await api.post('/api/blogs').send(helper.blogWithoutTitleAndUrl)
+        expect(response.status).toBe(400)
+    })
+    test('when we make an HTTP POST request, if the url is missing in the body, then return 400', async () => {
+        const response = await api.post('/api/blogs').send(helper.blogWithoutTitleAndUrl)
+        expect(response.status).toBe(400)
+    })
+
     afterAll(async () => {
         await mongoose.connection.close()
     })

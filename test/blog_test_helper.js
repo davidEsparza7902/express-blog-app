@@ -1,4 +1,12 @@
 const Blog = require('../models/blog')
+const blogWithoutTitleAndUrl = {
+    author: 'David Esparza'
+}
+const blogWithoutLikes = {
+    title: 'Business Inteligence',
+    author: 'David Esparza',
+    url: 'http://localhost'
+}
 const listWithOneBlog = [
     {
         _id: '5a422aa71b54a676234d17f8',
@@ -75,5 +83,7 @@ module.exports = {
     listWithOneBlog,
     blogs,
     blogDummy,
+    blogWithoutLikes,
+    blogWithoutTitleAndUrl,
     getBlogs
 }
