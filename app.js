@@ -1,14 +1,16 @@
 const config = require('./utils/config')
 const logger = require('./utils/logger')
-const express = require('express')
-
-const cors = require('cors')
-const mongoose = require('mongoose')
 const BlogRouter = require ('./controllers/blogs')
 
 const mongoUrl = config.MONGODB_URI
 
+const express = require('express')
+const cors = require('cors')
+
+const mongoose = require('mongoose')
+
 logger.info('connecting')
+
 mongoose.connect(mongoUrl).then(()=>{
     logger.info('connected to MongoDB')
 }).catch((e)=>{

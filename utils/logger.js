@@ -1,8 +1,10 @@
 const info = (str) => {
-    console.log(str)
+    if (process.env.NODE_ENV !== 'test')
+        console.log(str)
 }
 const error = (str) => {
-    console.log(str)
+    if (process.env.NODE_ENV !== 'test')
+        console.log(str)
 }
 
 module.exports = { 
