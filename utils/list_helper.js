@@ -141,7 +141,6 @@ const mostLikes = (blogs) =>{
             maxLikes = likeCount[author]
         }
     }
-    console.log(likeCount)
     return {
         author: maxAuthor,
         likes: maxLikes
