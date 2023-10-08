@@ -3,14 +3,17 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const helper = require('./blog_test_helper')
 const app = require('../app')
 const api = supertest(app)
-beforeEach(async () => {
-    await Blog.deleteMany({})
-    await Blog.insertMany(helper.initialBlogs)
-})
+
+
 describe ('when there is initially some blogs saved', () =>{
+    beforeEach(async () => {
+        await Blog.deleteMany({})
+        await Blog.insertMany(helper.initialBlogs)
+    })
     test('the connection works', async () => {
         await api
             .get('/api/blogs')
@@ -26,6 +29,10 @@ describe ('when there is initially some blogs saved', () =>{
 })
 
 describe('when we add a blog', () => {
+    beforeEach(async () => {
+        await Blog.deleteMany({})
+        await Blog.insertMany(helper.initialBlogs)
+    })
     test ('the length increases by 1', async () =>{
         const beforeLength = helper.initialBlogs.length
         await api.post('/api/blogs').send(helper.blogDummy)
@@ -58,6 +65,10 @@ describe('when we add a blog', () => {
 })
 
 describe('when we update a blog', () => {
+    beforeEach(async () => {
+        await Blog.deleteMany({})
+        await Blog.insertMany(helper.initialBlogs)
+    })
     // title
     test ('the title can be updated', async () => {
         const blogs = await helper.getBlogs()
@@ -97,6 +108,10 @@ describe('when we update a blog', () => {
 })
 
 describe('when we delete a blog',  () => {
+    beforeEach(async () => {
+        await Blog.deleteMany({})
+        await Blog.insertMany(helper.initialBlogs)
+    })
     test('the response status is 204',async () =>{
         const blogs = await helper.getBlogs()
         const blogToDelete = blogs[1]
@@ -113,6 +128,42 @@ describe('when we delete a blog',  () => {
     })
 })
 
+// Implement tests that ensure invalid users are not created and that an invalid add user operation returns a suitable status code and error message.
+describe('when we add a user', () => {
+    beforeEach(async () => {
+        await User.deleteMany({})
+        await User.insertMany(helper.initialUsers)
+    })
+    test('the users length increases by 1', async () => {
+        const beforeLength = helper.initialUsers.length
+        await api.post('/api/users').send(helper.userDummy)
+        const users = await helper.getUsers()
+        expect(users.length).toBe(beforeLength+1)
+    })
+    test('the saved user is equal to the sended user', async () => {
+        const response = await api.post('/api/users').send(helper.userDummy)
+        const savedUser = response.body
+        const users = await helper.getUsers()
+        expect(users[users.length-1]).toEqual(savedUser)
+    })
+    test('when the username is missing in the body, then return 400', async () => {
+        const response = await api.post('/api/users').send(helper.userWithoutUsername)
+        expect(response.status).toBe(400)
+    })
+    test('when the username is less than 3 characters, then return 400', async () => {
+        const response = await api.post('/api/users').send(helper.userWithShortUsername)
+        expect(response.status).toBe(400)
+    })
+    test('when the password is missing in the body, then return 400', async () => {
+        const response = await api.post('/api/users').send(helper.userWithoutPassword)
+        expect(response.status).toBe(400)
+    })
+    test('when the password is less than 3 characters, then return 400', async () => {
+        const response = await api.post('/api/users').send(helper.userWithShortPassword)
+        expect(response.status).toBe(400)
+    })
+
+})
 afterAll(async () => {
     await mongoose.connection.close()
 })

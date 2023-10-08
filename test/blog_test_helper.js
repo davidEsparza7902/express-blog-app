@@ -1,4 +1,5 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const blogWithoutTitleAndUrl = {
     author: 'David Esparza'
 }
@@ -74,16 +75,101 @@ const blogDummy = {
     url: 'http://localhost',
     likes: 20
 }
-
+const initialUsers = [
+    {
+        'username': 'user1',
+        'name': 'John Doe'
+    },
+    {
+        'username': 'user2',
+        'name': 'Jane Smith'
+    },
+    {
+        'username': 'user3',
+        'name': 'Michael Johnson'
+    },
+    {
+        'username': 'user4',
+        'name': 'Emily Davis'
+    },
+    {
+        'username': 'user5',
+        'name': 'David Brown'
+    },
+    {
+        'username': 'user6',
+        'name': 'Sarah Wilson'
+    },
+    {
+        'username': 'user7',
+        'name': 'Robert Anderson'
+    },
+    {
+        'username': 'user8',
+        'name': 'Jessica Martinez'
+    },
+    {
+        'username': 'user9',
+        'name': 'Daniel Taylor'
+    },
+    {
+        'username': 'user10',
+        'name': 'Jennifer Garcia'
+    }
+]
+const userDummy = {
+    username: 'david',
+    name: 'David Esparza',
+    password: '123456789'
+}
+const invalidUser = {
+    username: 'da',
+    name: 'David Esparza',
+    password: '12'
+}
+const userWithoutUsername = {
+    name: 'David Esparza',
+    password: '123456789'
+}
+const userWithoutName = {
+    username: 'david',
+    password: '123456789'
+}
+const userWithShortUsername = {
+    name: 'David Esparza',
+    password: '123456789'
+}
+const userWithoutPassword = {
+    username: 'david',
+    name: 'David Esparza',
+}
+const userWithShortPassword = {
+    username: 'david',
+    name: 'David Esparza',
+    password: '12'
+}
 const getBlogs = async () => {
     const blogs = await Blog.find({})
     return blogs.map(blog => blog.toJSON())
-} 
+}
+const getUsers = async () => {
+    const users = await User.find({})
+    return users.map(user => user.toJSON())
+}
 module.exports = {
     listWithOneBlog,
     initialBlogs,
     blogDummy,
     blogWithoutLikes,
     blogWithoutTitleAndUrl,
-    getBlogs
+    getBlogs,
+    getUsers,
+    userDummy,
+    invalidUser,
+    userWithoutUsername,
+    userWithoutName,
+    userWithShortUsername,
+    userWithoutPassword,
+    userWithShortPassword,
+    initialUsers
 }
