@@ -1,5 +1,6 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
+
 const blogWithoutTitleAndUrl = {
     author: 'David Esparza'
 }
@@ -78,43 +79,53 @@ const blogDummy = {
 const initialUsers = [
     {
         'username': 'user1',
-        'name': 'John Doe'
+        'name': 'John Doe',
+        'password': '123456789'
     },
     {
         'username': 'user2',
-        'name': 'Jane Smith'
+        'name': 'Jane Smith',
+        'password': '123456789'
     },
     {
         'username': 'user3',
-        'name': 'Michael Johnson'
+        'name': 'Michael Johnson',
+        'password': '123456789'
     },
     {
         'username': 'user4',
-        'name': 'Emily Davis'
+        'name': 'Emily Davis',
+        'password': '123456789'
     },
     {
         'username': 'user5',
-        'name': 'David Brown'
+        'name': 'David Brown',
+        'password': '123456789'
     },
     {
         'username': 'user6',
-        'name': 'Sarah Wilson'
+        'name': 'Sarah Wilson',
+        'password': '123456789'
     },
     {
         'username': 'user7',
-        'name': 'Robert Anderson'
+        'name': 'Robert Anderson',
+        'password': '123456789'
     },
     {
         'username': 'user8',
-        'name': 'Jessica Martinez'
+        'name': 'Jessica Martinez',
+        'password': '123456789'
     },
     {
         'username': 'user9',
-        'name': 'Daniel Taylor'
+        'name': 'Daniel Taylor',
+        'password': '123456789'
     },
     {
         'username': 'user10',
-        'name': 'Jennifer Garcia'
+        'name': 'Jennifer Garcia',
+        'password': '123456789'
     }
 ]
 const userDummy = {
@@ -156,6 +167,7 @@ const getUsers = async () => {
     const users = await User.find({})
     return users.map(user => user.toJSON())
 }
+
 module.exports = {
     listWithOneBlog,
     initialBlogs,
